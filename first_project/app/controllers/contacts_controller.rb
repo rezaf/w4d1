@@ -1,6 +1,14 @@
 class ContactsController < ApplicationController
   def index
-    render json: Contact.all
+    if params.has_key?(:user_id)
+      # index of nested resource
+      @contacts = Contact.where(user_id: params[:user_id])
+      @contacts += User.find(params[:user_id]).shared_contacts
+      
+      render json: @contacts
+    else
+      render json: "no contacts :("
+    end
   end
   
   def show

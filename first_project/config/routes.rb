@@ -10,6 +10,10 @@ Rails.application.routes.draw do
 #   delete 'users/:id' => 'users#destroy'
 
   resources :users, only: [:create, :destroy, :index, :show, :update ]
-  resources :contacts, only: [:create, :destroy, :index, :show, :update ]
+  resources :contacts, only: [:create, :destroy, :show, :update ]
+  resources :contact_shares, only: [:create, :destroy ]
+  resources :users do
+    resources :contacts, only: :index
+  end
 end
 
